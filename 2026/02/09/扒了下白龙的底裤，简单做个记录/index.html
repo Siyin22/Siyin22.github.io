@@ -68,7 +68,7 @@
 }
 </style>
 
-  <title> 尝试弄一个博客... · Siyin's Blog </title>
+  <title> 扒了下白龙的底裤，简单做个记录 · Siyin's Blog </title>
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
   <div class="container">
@@ -122,19 +122,43 @@
       <div class="post-time syuanpi fadeInRightShort back-1">
         <div class="post-time-wrapper">
           
-          <time>2026-02-08</time>
+          <time>2026-02-09</time>
           
         </div>
       </div>
       <h1 class="post-title syuanpi fadeInRightShort back-2">
         
-          尝试弄一个博客...
+          扒了下白龙的底裤，简单做个记录
         
       </h1>
     </header>
     <div class="post-content syuanpi fadeInRightShort back-3">
       
-        <p>还在搭建阶段，应该会往里面塞不少东西，一步一步慢慢走。</p>
+        <ul>
+<li>想到啥写啥，诶嘿。</li>
+</ul>
+<hr>
+<h2 id="Ⅰ-弹幕记录"><a href="#Ⅰ-弹幕记录" class="headerlink" title="Ⅰ. 弹幕记录"></a>Ⅰ. 弹幕记录</h2><ul>
+<li>先展示一下这次重置读好的弹幕：<span id="more"></span>
+<img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/%E5%BC%B9%E5%B9%95.png" alt="弹幕.png"></li>
+<li>DOT：<br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209141951798.png" alt="image.png"></li>
+<li>PS：单次持续时间确实是7s，但是一共三道落雷，每道落雷都能挂buff_407，重复挂上相同的buff时，会刷新该buff的持续时间，而第三道落雷和第一道落雷的间隔刚好是2s，总计就是9s了。</li>
+</ul>
+<hr>
+<h2 id="Ⅱ-个人认知变更"><a href="#Ⅱ-个人认知变更" class="headerlink" title="Ⅱ. 个人认知变更"></a>Ⅱ. 个人认知变更</h2><ul>
+<li>这次自己重置一些弹幕信息的原因，其实也是之前对<font color="#c00000">物理命中率</font>的计算方案存在一定的误差；造成误差的核心因素是纯Excel形式不太好处理<strong>offsetX</strong>；</li>
+<li>于是，根据碧蓝航线BWIKI【范围武器的散布机制与模拟】页面的信息，结合个人理解，用<font color="#0070c0">通义千问3-Max</font>写了一个<font color="#205867">计算固定靶物理命中率</font>的py工具：<br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142109284.png" alt="a2a35299-ccbb-4638-964b-316a91bee0f6.png|470"></li>
+<li>该工具的准确性很高，通过了实战验证，数据结果也与<em>坐看云起i</em>的老代码相吻合。</li>
+<li>先看一下天雷罪灭+的落雷吧，伤害范围12，散布10×10，<strong>offsetX</strong>&#x3D;-5，对碰撞盒为10×5.5的固定靶和8×5.5的固定靶（后续一致），<font color="#c00000">物理命中率</font>分别如下：<br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142447333.png" alt="image.png|470"><br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142515784.png" alt="image.png|470"></li>
+<li>之前的认知是，这落雷必中，刚算出来的时候愣了一下，甚至有点怀疑是不是哪里出问题了（）；但是在<font color="#6425d0">オリ</font>的实战验证后（见B站视频【关于白龙落雷敌人站着不动都能打歪这件事.jpg】BV1SqrCB3Eru，第一发落雷），啊确实，这东西不是必中的……那那那白龙大人，你……</li>
+<li>然后是 锋焰显征-战斗机 的两种通常弹：</li>
+<li>通常弹1<br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142534055.png" alt="image.png|470"><br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142549827.png" alt="image.png|470"></li>
+<li>通常弹2<br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142617285.png" alt="image.png|470"><br><img src="https://siyin-obsidian.oss-cn-guangzhou.aliyuncs.com/20260209142634658.png" alt="image.png|470"></li>
+<li>想了一下，之前我觉得白龙单走打桩拉表伤害会比实战虚高一点点，大概是有弹幕这方面的原因滴。</li>
+<li>另外，白龙的刀光，对桩<font color="#c00000">物理命中率</font>≈2.57&#x2F;(2+6)≈32.13%。</li>
+<li>嗯，应该没想到别的什么东西了，水到这里，跑路。</li>
+</ul>
+<hr>
 
       
     
@@ -150,12 +174,12 @@
     
   <nav class="article-page">
     
-      <a href="/2026/02/09/%E6%89%92%E4%BA%86%E4%B8%8B%E7%99%BD%E9%BE%99%E7%9A%84%E5%BA%95%E8%A3%A4%EF%BC%8C%E7%AE%80%E5%8D%95%E5%81%9A%E4%B8%AA%E8%AE%B0%E5%BD%95/" id="art-left" class="art-left">
-        <span class="next-title">
-          <i class="iconfont icon-left"></i>扒了下白龙的底裤，简单做个记录
+    
+      <a href="/2026/02/08/%E5%B0%9D%E8%AF%95%E5%BC%84%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2/" id="art-right" class="art-right">
+        <span class="prev-title">
+          尝试弄一个博客...<i class="iconfont icon-right"></i>
         </span>
       </a>
-    
     
   </nav>
 
