@@ -30,18 +30,36 @@
         return typeof count === 'string' && /^\d[\d,.\s\u00a0\u202f]*$/.test(count);
     }
 
+    function formatUpdatedAt(updatedAt) {
+        var date = new Date(updatedAt);
+        if (isNaN(date.getTime())) return '';
+        var parts = {};
+        new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Shanghai',
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+        }).formatToParts(date).forEach(function (part) { parts[part.type] = part.value; });
+        return parts.year + '-' + Number(parts.month) + '-' + Number(parts.day) +
+            ' ' + parts.hour + ':' + parts.minute;
+    }
+
     document.querySelectorAll('[data-visit-counter]').forEach(function (counter) {
         var value = counter.querySelector('[data-visit-value]');
         var unit = counter.querySelector('[data-visit-unit]');
+        var updated = counter.querySelector('[data-visit-updated]');
         var path = counter.dataset.visitCounter === 'TOTAL' ? 'TOTAL' : pagePath;
         var controller = new AbortController();
         var timeout = setTimeout(function () { controller.abort(); }, 10000);
         var hasCount = false;
         var liveFinished = false;
 
-        function showCount(count) {
+        function showCount(count, updatedAt) {
             value.textContent = count;
             unit.hidden = false;
+            var formatted = formatUpdatedAt(updatedAt);
+            updated.textContent = formatted ? '（截止' + formatted + '）' : '';
+            updated.hidden = !formatted;
+            counter.title = formatted ? '最近成功获取计数的时间（北京时间）；统计数据可能有缓存延迟' : '';
             hasCount = true;
         }
 
@@ -50,8 +68,7 @@
             if (liveFinished || !data || data.siteUrl !== endpoint.origin || !data.counts) return;
             var entry = data.counts[path];
             if (entry && validCount(entry.count)) {
-                showCount(entry.count);
-                counter.title = '统计更新于 ' + new Date(entry.updatedAt).toLocaleString();
+                showCount(entry.count, entry.updatedAt);
             }
         });
         fetch(endpoint.origin + '/counter/' + encodeURIComponent(path) + '.json', {
@@ -74,8 +91,7 @@
                 throw new Error('Invalid count');
             }
             liveFinished = true;
-            showCount(data.count);
-            counter.title = '';
+            showCount(data.count, new Date());
         }).catch(function (error) {
             if (!hasCount) {
                 // Wait for the same-origin snapshot before declaring failure.
