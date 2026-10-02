@@ -1,0 +1,51 @@
+name: Update public visit counts
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-visit-counts.yml'
+      - '.github/scripts/update-visit-counts.mjs'
+      - 'stats/visit-counter-config.json'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: visit-counts-pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Refresh public counter snapshot
+        run: node .github/scripts/update-visit-counts.mjs
+      - name: Save updated counters
+        run: |
+          if ! git diff --quiet -- stats/visits.json; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add stats/visits.json
+            git commit -m 'Update public visit counts'
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Publish updated snapshot
+        id: deployment
+        uses: actions/deploy-pages@v4
