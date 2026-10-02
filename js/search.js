@@ -38,7 +38,7 @@ if (searchInput && searchResults) {
                     
                     searchData.push({
                         title,
-                        link,
+                        link: link.replace(/^\/{2,}/, '/'),
                         content: content.replace(/<[^>]*>/g, '') // 去除HTML标签
                     });
                 } catch (error) {
