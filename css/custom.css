@@ -11,10 +11,16 @@
 
 /* DarkReader adapts these colors when the theme switches to dark mode. */
 .post-md mark {
-    background-color: #fff2a8;
+    background: linear-gradient(
+        to bottom,
+        transparent 60%,
+        rgb(241, 222, 222) 60%,
+        rgb(241, 222, 222) 90%,
+        transparent 90%
+    );
     color: inherit;
-    padding: 0.05em 0.15em;
-    border-radius: 0.15em;
+    padding: 0;
+    border-radius: 0;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
