@@ -8,3 +8,13 @@
     justify-content: flex-start;
     align-content: center;
 }
+
+/* DarkReader adapts these colors when the theme switches to dark mode. */
+.post-md mark {
+    background-color: #fff2a8;
+    color: inherit;
+    padding: 0.05em 0.15em;
+    border-radius: 0.15em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
