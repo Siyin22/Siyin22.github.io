@@ -19,7 +19,12 @@
 
     var snapshotController = new AbortController();
     var snapshotTimeout = setTimeout(function () { snapshotController.abort(); }, 5000);
-    var snapshot = fetch(script.dataset.snapshot, { credentials: 'omit', signal: snapshotController.signal })
+    // The snapshot is published by GitHub Pages, which may cache the same URL
+    // for several minutes. Ask the browser to revalidate it so a freshly
+    // published counter is not hidden behind an old cached response.
+    var snapshot = fetch(script.dataset.snapshot, {
+            credentials: 'omit', cache: 'no-store', signal: snapshotController.signal
+        })
         .then(function (response) {
             if (!response.ok) throw new Error('Snapshot HTTP ' + response.status);
             return response.json();
@@ -66,7 +71,12 @@
         value.textContent = '加载中';
         snapshot.then(function (data) {
             if (liveFinished || !data || data.siteUrl !== endpoint.origin || !data.counts) return;
+            // Hexo emits URL-encoded paths. Older snapshots may contain a
+            // decoded variant, so accept both forms while old files expire.
             var entry = data.counts[path];
+            if (!entry) {
+                try { entry = data.counts[decodeURI(path)]; } catch (error) { /* keep unavailable */ }
+            }
             if (entry && validCount(entry.count)) {
                 showCount(entry.count, entry.updatedAt);
             }
