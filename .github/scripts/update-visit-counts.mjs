@@ -49,5 +49,6 @@ export async function main(base = process.cwd()) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch(error => { console.error(error); process.exitCode = 1; });
+  main(process.argv[2] ? resolve(process.argv[2]) : process.cwd())
+    .catch(error => { console.error(error); process.exitCode = 1; });
 }

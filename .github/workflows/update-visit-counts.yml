@@ -1,11 +1,11 @@
 name: Deploy blog
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
 
 permissions:
   contents: write
@@ -19,36 +19,42 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
-          # Queued runs must publish the latest Hexo push, not an older snapshot.
+          # Queued runs always build the latest source on main.
           ref: main
       - uses: actions/configure-pages@v5
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build Hexo site
+        run: npm run build
       - name: Refresh public counter snapshot
         id: refresh
         continue-on-error: true
-        run: node .github/scripts/update-visit-counts.mjs
+        run: node .github/scripts/update-visit-counts.mjs public
       - name: Save updated counters
         id: snapshot
         if: steps.refresh.outcome == 'success'
         run: |
-          if ! git diff --quiet -- stats/visits.json; then
+          cp public/stats/visits.json source/stats/visits.json
+          if ! git diff --quiet -- source/stats/visits.json; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add stats/visits.json
+            git add source/stats/visits.json
             git commit -m 'Update public visit counts'
             if ! git push origin HEAD:main; then
               git fetch origin main
               if [ "$(git rev-parse HEAD^)" != "$(git rev-parse origin/main)" ]; then
-                echo "::notice::A newer blog push arrived; its queued run will publish the latest site."
+                echo "::notice::Newer source arrived; its queued run will publish the latest site."
                 echo "superseded=true" >> "$GITHUB_OUTPUT"
               else
                 echo "::error::Could not save the refreshed counter snapshot."
@@ -59,7 +65,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         if: steps.snapshot.outputs.superseded != 'true'
         with:
-          path: '.'
+          path: public
       - name: Publish blog
         id: deployment
         if: steps.snapshot.outputs.superseded != 'true'
