@@ -28,7 +28,7 @@ npm run server
 npm run build
 ```
 
-文章位于 `source/_posts/`，主题配置为 `_config.a4.yml`，主题定制位于 `themes/A4/`。主题直接保存在本仓库中，无需另外克隆或初始化子模块。
+文章位于 `source/_posts/`，主题配置为 `_config.A4.yml`，主题定制位于 `themes/A4/`。主题直接保存在本仓库中，无需另外克隆或初始化子模块。
 
 文章头部的 `date` 为发布时间，`updated` 为最近修改时间（北京时间）。修改已有文章时按需要更新 `updated`；构建不会将更新时间改为当次运行时间。已发布文章尽量保留 `permalink`，避免影响旧链接、评论和访问统计。
 

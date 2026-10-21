@@ -4,7 +4,7 @@
 
 1. 在 https://www.goatcounter.com/signup 注册，站点域名填写 `20010903.xyz`。
 2. 在站点 Settings 中开启 **Allow adding visitor counts on your website**。
-3. 在 `_config.a4.yml` 的 `analytics.goatcounter.siteUrl` 填入自己的站点地址，例如 `https://siyin.goatcounter.com`。这里填写的是 GoatCounter 地址，不是博客域名，不需要 API 密钥。
+3. 在 `_config.A4.yml` 的 `analytics.goatcounter.siteUrl` 填入自己的站点地址，例如 `https://siyin.goatcounter.com`。这里填写的是 GoatCounter 地址，不是博客域名，不需要 API 密钥。
 4. 运行 `npm run build` 检查；确认后提交并推送源码，由 GitHub Actions 自动构建和发布。
 
 页面优先读取博客同域的 `stats/visits.json` 统计快照，因此浏览器无法跨域读取 GoatCounter 时仍能显示最近成功获取的数字。计数后面显示 `（截止2026-10-2 21:00）`，时间统一使用北京时间：快照采用对应计数的 `updatedAt`，直接获取接口数据时采用本次成功获取的时间。该时间表示最近获取时间，服务自身可能存在缓存延迟。外部接口能访问时，会用接口返回的数字和获取时间更新显示。快照由 GitHub Actions 每小时自动获取并发布，不需要额外账号或密钥。GitHub 的定时任务可能延迟，GoatCounter 自身的计数缓存也仍然适用。
