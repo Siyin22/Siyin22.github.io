@@ -26,6 +26,7 @@ git pull --rebase
 npx hexo new "文章标题"
 npm run server
 npm run build
+npm run check
 ```
 
 文章位于 `source/_posts/`，主题配置为 `_config.A4.yml`，主题定制位于 `themes/A4/`。主题直接保存在本仓库中，无需另外克隆或初始化子模块。
@@ -44,6 +45,8 @@ git push origin main
 ```
 
 推送后在 Actions 查看 **Deploy blog**。构建成功后发布到原来的域名；构建失败时保留上次已上线的网页。
+
+发布前会检查主题配置文件的大小写、自定义域名、文章链接和评论映射。`_config.A4.yml` 中的 `A4` 必须与主题名一致，以便 Windows 和 Linux 读取同一份配置。
 
 **不再使用 `hexo d`、`hexo g -d` 或旧的生成网页部署目录。** 这些旧方式会把生成结果推到源码分支，因此已移除 Git 部署插件和对应配置。`hexo g`、`hexo s` 仍可正常使用。
 

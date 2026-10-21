@@ -37,6 +37,8 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Build Hexo site
         run: npm run build
+      - name: Verify generated pages
+        run: npm run check
       - name: Refresh public counter snapshot
         id: refresh
         continue-on-error: true

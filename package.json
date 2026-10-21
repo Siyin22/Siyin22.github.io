@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "hexo generate",
+    "check": "node .github/scripts/check-site.mjs",
     "clean": "hexo clean",
     "server": "hexo server"
   },
