@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="blog-token" content="__BLOG_TOKEN__">
+  <title>博客工作台</title>
+  <link rel="icon" type="image/svg+xml" href="/manage/icon.svg">
+  <link rel="stylesheet" href="/manage/style.css">
+  <script src="/manage/app.js" defer></script>
+</head>
+<body>
+  <main class="workbench">
+    <header class="heading">
+      <div class="identity"><span class="logo" aria-hidden="true">S<span>·</span></span><div><h1>博客工作台</h1><p>在 Obsidian 写作，在这里更新博客。</p></div></div>
+      <a class="site-link" href="https://20010903.xyz/" target="_blank" rel="noreferrer">打开博客 <span>↗</span></a>
+    </header>
+
+    <section class="overview" aria-label="博客状态">
+      <div class="local-status"><span class="status-dot" id="local-dot"></span><span id="local-status">正在读取本地状态…</span><button id="refresh" class="refresh" title="刷新本地状态" aria-label="刷新本地状态">↻</button></div>
+      <a id="deployment-link" href="https://github.com/Siyin22/Siyin22.github.io/actions" target="_blank" rel="noreferrer"><span class="status-dot muted-dot" id="deployment-dot"></span><span id="deployment-text">查看上线状态</span><span>↗</span></a>
+      <details id="changes" hidden><summary>查看待发布的修改 <span id="change-count"></span></summary><ul id="change-list"></ul><p>发布包含这里列出的文章、图片、主题和配置修改。</p></details>
+    </section>
+
+    <section class="daily-actions" aria-label="日常操作">
+      <button class="action-card" id="sync" data-job="sync"><span class="action-top"><span class="step">01</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 7a8 8 0 0 0-13-1L3 9m0-5v5h5M5 17a8 8 0 0 0 13 1l3-3m0 5v-5h-5"/></svg></span><strong>同步内容</strong><span class="description">写作前，取回线上最新内容</span><span class="action-bottom">保留本地未发布的修改 <span>↗</span></span></button>
+      <button class="action-card" id="preview" data-job="preview"><span class="action-top"><span class="step">02</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v13H3zM8 21h8m-4-3v3M3 9h18"/></svg></span><strong>本地预览</strong><span class="description">生成并检查，看看实际效果</span><span class="action-bottom">准备完成后自动打开 <span>↗</span></span></button>
+      <button class="action-card publish-card" id="publish" data-job="publish"><span class="action-top"><span class="step">03</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 14v6h16v-6"/></svg></span><strong>更新推送</strong><span class="description">保存版本、同步并发布到博客</span><span class="action-bottom">发布前自动完成检查 <span>↗</span></span></button>
+    </section>
+
+    <section class="utilities" aria-label="辅助工具"><div class="section-caption"><h2>需要时再用</h2><span id="cache-status">本地维护</span></div><div class="utility-buttons"><button id="new-post"><span>＋</span>新建文章</button><button id="folder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h6l2 3h10v11H3zM3 6V4h6l2 2h8v3"/></svg>文章文件夹</button><button id="build" data-job="build"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5m-18 5 9 5 9-5"/></svg>生成并检查</button><button id="clean" data-job="clean"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 3 4 4-8 8-4-4 8-8ZM7 11l-4 7 3 3 7-4M4 18l3 2"/></svg>清理缓存</button></div><p class="utility-hint">生成并检查：只在本机生成网页、检查链接与配置。预览和更新推送会自动执行，平时无需单独点击。</p></section>
+
+    <section id="task-panel" class="task-panel" aria-live="polite" hidden><div class="task-heading"><span id="task-symbol" class="spinner" aria-hidden="true"></span><div><h2 id="task-title">正在处理…</h2><p id="task-message"></p><a id="open-preview" class="preview-link" href="/" target="_blank" rel="noreferrer" hidden>打开预览 ↗</a></div><button id="dismiss-task" class="subtle" hidden>收起</button></div><details><summary>查看操作日志</summary><pre id="task-log"></pre></details></section>
+
+    <footer><p class="save-reminder"><span aria-hidden="true">✧</span> 推送前，记得先在 Obsidian 保存。</p><details class="help"><summary>使用提示</summary><div><p>同步 → 在 Obsidian 写作 → 本地预览 → 更新推送。</p><p>清理缓存只移除生成网页和缓存，文章、图片及主题都会保留。预览会根据当前文章生成最新网页，准备完成后自动打开；清理缓存后会完整重建。</p><p>新建文章会带上日期与文章头部；已有文章的 <code>updated</code> 时间可在 Obsidian 中修改，保留原有 <code>permalink</code> 即可继续使用旧网址。</p><p>出现冲突会停止操作并保留本地内容。点上方的上线状态可查看 GitHub 发布结果。</p><p><a href="https://github.com/Siyin22/Siyin22.github.io/actions" target="_blank" rel="noreferrer">查看发布记录 ↗</a></p></div></details></footer>
+  </main>
+  <dialog id="new-dialog"><form id="new-form"><h2>新建一篇文章</h2><p>准备好 Markdown 文件后，继续在 Obsidian 中写。</p><label>文章标题<input id="new-title" required maxlength="150" placeholder="今天想写些什么？" autocomplete="off"></label><div class="dialog-actions"><button type="button" id="cancel-new">取消</button><button type="submit" class="primary">创建文章</button></div></form></dialog>
+  <div id="toast" role="status" hidden></div>
+</body>
+</html>

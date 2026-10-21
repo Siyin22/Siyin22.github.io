@@ -6,7 +6,9 @@
     "build": "hexo generate",
     "check": "node .github/scripts/check-site.mjs",
     "clean": "hexo clean",
-    "server": "hexo server"
+    "server": "hexo server",
+    "manage": "node tools/blog-manager/server.cjs --open",
+    "test:manager": "node --test tools/blog-manager/server.test.cjs"
   },
   "hexo": {
     "version": "7.3.0"

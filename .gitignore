@@ -10,3 +10,6 @@ _multiconfig.yml
 .env
 .env.*
 !.env.example
+.blog-manager/
+.obsidian/
+.trash/
