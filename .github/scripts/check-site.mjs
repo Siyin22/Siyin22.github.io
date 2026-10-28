@@ -19,6 +19,15 @@ assert(counters.paths.includes('/integrate-bilibili-translation-model-daily-tool
   'The existing Index Translate Bridge URL must be preserved');
 const home = read('public/index.html');
 assert(home.includes('data-snapshot="/stats/visits.json"'), 'The homepage must load the counter snapshot');
+const homePages = [home];
+const paginationDir = /^pagination_dir:\s*([^\s#]+)/m.exec(config)?.[1] || 'page';
+for (let page = 2; existsSync(`public/${paginationDir}/${page}/index.html`); page++) {
+  const html = read(`public/${paginationDir}/${page}/index.html`);
+  assert(html.includes('class="index-logo"'), `Homepage pagination must retain the homepage layout: ${page}`);
+  assert(html.includes('data-snapshot="/stats/visits.json"'), `Homepage pagination must retain visit statistics: ${page}`);
+  homePages.push(html);
+}
+const homeArticles = homePages.join('\n');
 
 const publicDir = resolve('public') + sep;
 for (const route of counters.paths.filter(path => path !== 'TOTAL')) {
@@ -27,6 +36,6 @@ for (const route of counters.paths.filter(path => path !== 'TOTAL')) {
   const html = read(filename);
   assert(html.includes('data-mapping="pathname"'), `Comment path mapping is missing: ${route}`);
   assert(html.includes('data-repo="Siyin22/blog-comments"'), `The existing comment repository is missing: ${route}`);
-  assert(home.includes(route), `The homepage must link to the article: ${route}`);
+  assert(homeArticles.includes(route), `The homepage list must link to the article across its pages: ${route}`);
 }
-console.log(`Verified theme configuration, custom domain, original article URL, comments and ${counters.paths.length - 1} article pages`);
+console.log(`Verified theme configuration, custom domain, original article URL, comments, ${homePages.length} homepage list pages and ${counters.paths.length - 1} article pages`);

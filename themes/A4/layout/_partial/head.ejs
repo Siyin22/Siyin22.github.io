@@ -106,6 +106,7 @@
         <% } %>
     <% } else { %>
         <%- css('css/highlight/style1.css') %>
+        <%- css('css/a11y-dark.min.css') %>
         <%- css('css/reset.css') %>
         <%- css('css/markdown.css') %>
         <%- css('css/fonts.css') %>
@@ -150,5 +151,23 @@
     <% } %>
 
     <!-- <link rel="stylesheet" href="https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkai/dist/LXGWWenKai-Regular/result.css" /> -->
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@chinese-fonts/lxgwwenkai@3.0.0/dist/LXGWWenKai-Regular/result.css' /> 
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@chinese-fonts/lxgwwenkai@3.0.0/dist/LXGWWenKai-Regular/result.css' />
+
+    <% if(theme.tool.mathjax && (!('mathjax' in page) || page.mathjax == true)) { %>
+        <!--全局数学公式支持：MathJax 3，可在文章 front-matter 用 mathjax: false 单独关闭-->
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                }
+            };
+        </script>
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <% } %>
+
+    <% if(theme.font.googleFontUrl) { %>
+        <!--自定义字体链接：支持填入 Google Fonts 或其他字体 CSS 的 URL，留空则不加载-->
+        <link rel="stylesheet" href="<%= theme.font.googleFontUrl %>" />
+    <% } %>
 </head>

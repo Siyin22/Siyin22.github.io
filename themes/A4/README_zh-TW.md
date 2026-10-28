@@ -55,10 +55,10 @@ _右上角一個star，更快更新功能_
 ### 多種主題配色
 
 #### 灰白配色（默認）
-![](https://jsd.cdn.zzko.cn/gh/hininojay/images/a4color/greywhite.png)
+![](https://cdn.jsdelivr.net/gh/hininojay/images/a4color/greywhite.png)
 
 #### 綠金配色（已預置｜可一鍵啟用）
-![](https://jsd.cdn.zzko.cn/gh/hininojay/images/a4color/greengolden.png)
+![](https://cdn.jsdelivr.net/gh/hininojay/images/a4color/greengolden.png)
 
 `顏色搭配是一門學問`，除A4推薦的兩種配色外，你可以自行調色，並把顏色方案分享給大家。更多配色請看：[預覽](https://ninojay.top/hexoplugin/A4-color-change/)。
 
@@ -100,11 +100,7 @@ _右上角一個star，更快更新功能_
 
 ## ⚠️必讀配置
 
-首頁和文章列表頁需要手動生成，執行以下命令即可：
-```shell
-hexo new page index
-hexo new page list
-```
+首頁（index）和文章列表頁（list）會在啟動時（`hexo g` / `hexo s`）自動建立，無需手動執行命令。如需自訂首頁內容，直接編輯 `source/index/index.md` 即可。
 
 其他詳細配置請看：
 ➡️ [使用文檔](https://doc.ninojay.top)，已上線。

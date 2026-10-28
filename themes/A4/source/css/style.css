@@ -259,11 +259,11 @@ a
 {
     font-size: 0.875rem;
     width: 100%;
-    margin: -18px auto 24px;
+    margin: 0px auto 16px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /*justify-content: space-evenly;*/
+    justify-content: center;
     align-items: center;
 }
 .paginator *
@@ -272,7 +272,7 @@ a
     padding: 8px 16px;
     border-radius: 18px;
     background: #fff;
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
 }
 .paginator .space
 {
@@ -281,6 +281,18 @@ a
     border-radius: 18px;
     background: #fff;
     border: none;
+}
+.paginator .page-number
+{
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    margin: 4px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .paginator a
 {
@@ -297,6 +309,13 @@ a
 {
     color: var(--font-color-0);
     border: 1px solid var(--font-color-0);
+}
+
+body.lightbox-open .progress-wrap,
+body.lightbox-open .return-to-last-progress-wrap,
+body.lightbox-open .theme-dark-mode-toggle
+{
+    display: none !important;
 }
 
 .footer

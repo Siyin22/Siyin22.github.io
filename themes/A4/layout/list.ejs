@@ -1,6 +1,9 @@
 <div class="archive-list">
   <ul class="archive">
-      <% var postArray = eval('site.posts.data') %>
+      <% var isIndexPaged = !!(theme.index.pagination && (path == "index.html" || /^page\/\d+\/index\.html$/.test(path))) %>
+      <% var isListPaged = !!(theme.list.pagination && /^list\/(?:index\.html|page\/\d+\/index\.html)$/.test(path)) %>
+      <% var isPaged = !!(page.posts && (isIndexPaged || isListPaged)) %>
+      <% var postArray = isPaged ? page.posts.data : eval('site.posts.data') %>
 
       <!--文章先按照时间排好序-->
       <% postArray.sort((a, b) => {
@@ -192,7 +195,7 @@
             <span class="archive-date">&nbsp;&nbsp;&nbsp;<%= date(thisPost.date, "MM/DD") %> 
             </span>
             <div class="archive-main">
-              <% if(thisPost.categories.length > 0) { %>
+              <% if(!theme.listInfo.hideCategory && thisPost.categories.length > 0) { %>
                 <a class="archive-title"  href="/<%= thisPost.categories.data[0].path %>">
                   <%= thisPost.categories.data[0].name %> 
                 </a> | 
@@ -204,4 +207,6 @@
       <% } %>
   </ul>
 </div>
-<!-- <%- partial('_partial/paginator') %> -->
+<% if(isPaged) { %>
+    <%- partial('_partial/paginator') %>
+<% } %>
