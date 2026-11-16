@@ -59,8 +59,8 @@ jobs:
                 echo "::notice::Newer source arrived; its queued run will publish the latest site."
                 echo "superseded=true" >> "$GITHUB_OUTPUT"
               else
-                echo "::error::Could not save the refreshed counter snapshot."
-                exit 1
+                # The refreshed snapshot is already in public/ for deployment.
+                echo "::warning::Could not save the refreshed counter snapshot to main; publishing the site with the refreshed counts."
               fi
             fi
           fi
